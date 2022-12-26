@@ -1,10 +1,12 @@
-export const BaskedItem = ({
-  props,
-  removeFromBasked = Function.prototype,
-  incQuantity = Function.prototype,
-  decQuantity = Function.prototype,
-}) => {
+import { useContext } from "react";
+import { ShopContext } from "./context";
+
+export const BaskedItem = ({ props }) => {
   const { id, name, regularPrice, quantity } = props;
+
+  const { removeFromBasket, incQuantity, decQuantity } =
+    useContext(ShopContext);
+
   return (
     <li className="collection-item">
       {name} x {quantity} = {regularPrice * quantity || 0} euro
@@ -17,7 +19,7 @@ export const BaskedItem = ({
       <span
         className="secondary-content"
         style={{ display: "block" }}
-        onClick={() => removeFromBasked(id)}
+        onClick={() => removeFromBasket(id)}
       >
         <i className="material-icons basket-delete">close</i>
       </span>

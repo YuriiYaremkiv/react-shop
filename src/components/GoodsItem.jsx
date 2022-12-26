@@ -1,4 +1,7 @@
-export const GoodsItem = ({ props, addToBasked }) => {
+import { useContext } from "react";
+import { ShopContext } from "./context";
+
+export const GoodsItem = ({ props }) => {
   const {
     mainId: id,
     displayName: name,
@@ -6,6 +9,8 @@ export const GoodsItem = ({ props, addToBasked }) => {
     price: { regularPrice },
     displayAssets: [{ full_background }],
   } = props;
+
+  const { addToBasked } = useContext(ShopContext);
 
   return (
     <div className="card">
@@ -24,7 +29,7 @@ export const GoodsItem = ({ props, addToBasked }) => {
           <span
             className="right"
             style={{ fontSize: "1.5rem" }}
-          >{`${regularPrice} rub.`}</span>
+          >{`${regularPrice} euro`}</span>
         </div>
       </div>
     </div>

@@ -1,13 +1,12 @@
+import { useContext } from "react";
+import { ShopContext } from "./context";
+
 import { BaskedItem } from "./BaskedItem";
 
-export const BaskedList = ({
-  props = [],
-  handleBaskedShow = Function.prototype,
-  removeFromBasked = Function.prototype,
-  incQuantity = Function.prototype,
-  decQuantity = Function.prototype,
-}) => {
-  const totalPrice = props.reduce((acc, item) => {
+export const BaskedList = () => {
+  const { order, handleBaskedShow } = useContext(ShopContext);
+
+  const totalPrice = order.reduce((acc, item) => {
     acc += item.regularPrice * item.quantity;
     return acc;
   }, 0);
@@ -20,17 +19,9 @@ export const BaskedList = ({
           <i className="material-icons basket-close">close</i>
         </span>
       </li>
-      {props.length ? (
-        props.map((item) => {
-          return (
-            <BaskedItem
-              key={item.id}
-              props={item}
-              removeFromBasked={removeFromBasked}
-              incQuantity={incQuantity}
-              decQuantity={decQuantity}
-            />
-          );
+      {order.length ? (
+        order.map((item) => {
+          return <BaskedItem key={item.id} props={item} />;
         })
       ) : (
         <li className="collection-item">Корзина пустая</li>
